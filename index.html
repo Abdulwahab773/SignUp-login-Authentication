@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login/Signup</title>
+    <link rel="stylesheet" href="CSS/style.css" />
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <div class="removed-form">
+                <h1>Create Account</h1>
+                <input id="nameinput" type="text" placeholder="Name"/>
+                <input id="signUpEmail" type="email" placeholder="Email" />
+                <input id="signUpPass" type="password" placeholder="Password" />
+                <button id="signUpBtn">Sign Up</button>
+
+
+                <button type="button" class="google-btn" id="googleSignUpBtn">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
+                        alt="Google Icon" />
+                    Continue with Google
+                </button>
+            </div>
+        </div>
+        <div class="form-container sign-in-container">
+            <div class="removed-form">
+                <h1>Login</h1>
+                <input id="loginEmail" type="email" placeholder="Email" />
+                <input id="loginPass" type="password" placeholder="Password" />
+                <button id="loginBtn">Login</button>
+            </div>
+        </div>
+
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected, please login</p>
+                    <button class="ghost" id="signIn">Login</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your details and start your journey</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="script/app.js"></script>
+    <script type="module" src="script/signUp.js"></script>
+    <script type="module" src="script/login.js"></script>
+</body>
+
+</html>
