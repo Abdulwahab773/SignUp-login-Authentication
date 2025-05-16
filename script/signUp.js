@@ -5,7 +5,7 @@ let nameinput = document.getElementById("nameinput");
 let googleSignUpBtn = document.getElementById("googleSignUpBtn");
 
 
-import { createUserWithEmailAndPassword, auth, updateProfile, provider, signInWithPopup } from "./firebase.js";
+import { createUserWithEmailAndPassword, auth, updateProfile, GoogleAuthProvider, signInWithPopup, provider } from "./firebase.js";
 
 const signUP = () => {
     if (signUpEmail.value && signUpPass.value && nameinput.value) {
@@ -51,13 +51,30 @@ const signUP = () => {
 
 
 const signUpWithGoogle = () => {
+
     signInWithPopup(auth, provider)
         .then((result) => {
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
             const user = result.user;
+
+            setTimeout(() => {
+                location = "./dashboard.html"; 
+            }, 700);
+
+
         }).catch((error) => {
-            console.log(error);
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            const email = error.customData.email;
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            Swal.fire({
+                title: 'Login Failed',
+                text: error,
+                icon: 'error',
+                confirmButtonText: 'Try Again'
+            });
+
         });
 }
 

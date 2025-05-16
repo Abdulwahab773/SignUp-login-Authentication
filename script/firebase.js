@@ -24,8 +24,9 @@ export {
     signInWithEmailAndPassword,
     signOut,
     updateProfile,
-    provider,
     signInWithPopup,
     sendEmailVerification,
-    deleteUser  
+    deleteUser,
+    GoogleAuthProvider,
+    provider  
 }
