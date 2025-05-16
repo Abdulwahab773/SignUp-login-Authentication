@@ -3,6 +3,7 @@ let signUpEmail = document.getElementById("signUpEmail");
 let signUpPass = document.getElementById("signUpPass")
 let nameinput = document.getElementById("nameinput");
 let googleSignUpBtn = document.getElementById("googleSignUpBtn");
+let mobileSignIn = document.getElementById("mobileSignIn");
 
 
 import { createUserWithEmailAndPassword, auth, updateProfile, GoogleAuthProvider, signInWithPopup, provider } from "./firebase.js";
@@ -59,7 +60,7 @@ const signUpWithGoogle = () => {
             const user = result.user;
 
             setTimeout(() => {
-                location = "./dashboard.html"; 
+                location = "./dashboard.html";
             }, 700);
 
 
@@ -77,6 +78,11 @@ const signUpWithGoogle = () => {
 
         });
 }
+
+mobileSignIn.addEventListener('click', () => {
+    location = "./index.html"
+})
+
 
 signUpBtn.addEventListener('click', signUP, updateProfile);
 googleSignUpBtn.addEventListener('click', signUpWithGoogle);

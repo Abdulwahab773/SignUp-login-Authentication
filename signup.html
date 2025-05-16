@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <link rel="stylesheet" href="CSS/signup.css">
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div id="sign-up-container" class="form-container sign-up-container ">
+            <div class="removed-form">
+                <h1>Create Account</h1>
+                <input id="nameinput" type="text" placeholder="Name" />
+                <input id="signUpEmail" type="email" placeholder="Email" />
+                <input id="signUpPass" type="password" placeholder="Password" />
+                <button id="signUpBtn">Sign Up</button>
+
+
+                <button type="button" class="google-btn" id="googleSignUpBtn">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
+                        alt="Google Icon" />
+                    Continue with Google
+                </button>
+                <div class="mobile-toggle">
+                    <span>Already have an account?</span>
+                    <button class="ghost" id="mobileSignIn">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="script/signUp.js"></script>
+</body>
+
+</html>

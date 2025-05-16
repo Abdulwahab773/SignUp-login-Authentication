@@ -207,26 +207,65 @@ button.ghost {
 }
 
 
-/* Responsive */
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
     .container {
         width: 95%;
-        min-height: 650px;
+        background: rgba(255, 255, 255, 0.05);
     }
 
     .form-container {
         width: 100%;
-        position: absolute;
         padding: 40px 30px;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .sign-in-container {
+        opacity: 1;
+        z-index: 10;
+    }
+
+    .container.right-panel-active .sign-in-container {
+        opacity: 0;
     }
 
     .overlay-container {
         display: none;
     }
 
-    .container.right-panel-active .sign-up-container,
-    .container.right-panel-active .sign-in-container {
-        transform: translateX(0);
-        opacity: 1;
+    .mobile-toggle {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 30px;
+        gap: 15px;
     }
+
+    .mobile-toggle button {
+        padding: 10px 25px;
+        font-size: 14px;
+        margin-top: 0;
+    }
+
+    .desktop-toggle {
+        display: none;
+    }
+}
+
+
+
+@media (min-width: 769px) {
+    .mobile-toggle {
+        display: none;
+    }
+
+    .desktop-toggle {
+        display: block;
+    }
+}
+
+.hideContainer {
+    display: none;
 }
