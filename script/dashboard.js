@@ -1,22 +1,33 @@
-import { auth, signOut, onAuthStateChanged, sendEmailVerification, deleteUser } from "./firebase.js";
+document.getElementById('toggleSidebar').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('collapsed');
+});
 
-let panel = document.getElementById("verification-panel");
+import { deleteDoc, updateDoc, auth, signOut, onAuthStateChanged, sendEmailVerification, deleteUser, db, doc, setDoc, addDoc, Timestamp, collection, getDocs, onSnapshot, query, orderBy } from "./firebase.js";
+
 let userName = document.getElementById("user-name");
 let userEmail = document.getElementById("user-email");
 let uid = document.getElementById("uid");
 let createdDate = document.getElementById("created-date");
 let logoutBtn = document.getElementById("logout-btn");
 let userImage = document.getElementById("userImage");
-let verifyBtn = document.getElementById("verifyBtn");
 let deleteBtn = document.getElementById("delete-btn");
+
+// Todo
+let todoInput = document.getElementById("todoInput");
+let todoAddBtn = document.getElementById("todoAddBtn");
+let todoList = document.getElementById("todoList");
+let currentUID = null;
+
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
+        currentUID = user.uid;
         const email = user.email;
         const userId = user.uid;
         const date = user.metadata.creationTime;
         const creationTime = date.slice(4, 17);
         const nameOfUser = user.displayName;
+        const photoURL = user.photoURL;
 
         userName.innerHTML = nameOfUser || "Not Provided";
         userEmail.innerHTML = email;
@@ -24,17 +35,13 @@ onAuthStateChanged(auth, (user) => {
         createdDate.innerHTML = creationTime;
 
         if (user.photoURL === null) {
-            userImage.src = "https://i.pravatar.cc/100";
+            userImage.src = "https://cdn-icons-png.flaticon.com/512/12225/12225935.png";
         } else {
-            userImage.src = "https://lh3.googleusercontent.com/a/ACg8ocJuCMUwOU0mInt0cn1Jn4EsxO7jpdnqN0-cOtkUzRANI6-bKYmh=s96-c";
-        }
-
-        if (user.emailVerified === true) {
-            panel.style.display = "none";
+            userImage.src = photoURL
         }
     }
+    getTodo();
 });
-
 
 
 let logOut = () => {
@@ -44,18 +51,6 @@ let logOut = () => {
     }).catch((error) => {
         console.log(error);
     });
-}
-
-
-let emailVerify = () => {
-    sendEmailVerification(auth.currentUser)
-        .then(() => {
-            Swal.fire({
-                icon: "success",
-                title: "Sent",
-                text: "Email Verifcation sent!",
-            });
-        });
 }
 
 
@@ -77,6 +72,66 @@ let deleteAcc = () => {
         });
 }
 
+
+let addTodo = async () => {
+    if (todoInput.value.trim()) {
+        const docRef = await addDoc(collection(db, currentUID), {
+            todo: todoInput.value,
+            timestamp: Timestamp.now()
+        });
+        todoInput.value = "";
+    } else {
+        Swal.fire({
+            text: "Please Write Something.",
+            icon: "error"
+        });
+    }
+}
+
+
+
+let getTodo = async () => {
+    let collectionRef = collection(db, currentUID);
+    let dbRef = query(collectionRef, orderBy("timestamp", "asc"))
+    await onSnapshot(dbRef, (snapshot) => {
+        todoList.innerHTML = "";
+        todoInput.value = "";
+        snapshot.forEach((docs) => {
+            let data = docs.data();
+            todoList.innerHTML += `<li class="todo-item">
+                  <span id="todoText" class="task-text">${data.todo}</span>
+                     <div class="task-actions">
+                         <button onclick="completedTodo(this)" class="complete-btn"><i class="fas fa-check"></i></button>
+                         <button onclick="deleteTodo('${docs.id}')" class="delete-task-btn"><i class="fas fa-trash"></i></button>
+                         <button onclick="updateTodo('${docs.id}')" class="update-task-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+                     </div>
+                     </li>`
+        })
+    })
+}
+
+let deleteTodo = async (id) => {
+    await deleteDoc(doc(db, currentUID, id));
+}
+
+let updateTodo = async (id) => {
+    let updatedVal = prompt("Enter Updated Msg:")
+    const dbRef = doc(db, currentUID, id);
+    await updateDoc(dbRef, {
+        todo: updatedVal
+    });
+}
+
+
+let completedTodo = (btn) => {
+    btn.closest(".todo-item").querySelector(".task-text").style.textDecoration = "line-through";
+};
+
+
+window.deleteTodo = deleteTodo;
+window.completedTodo = completedTodo;
+window.updateTodo = updateTodo;
+
 deleteBtn.addEventListener('click', deleteAcc);
 logoutBtn.addEventListener('click', logOut);
-verifyBtn.addEventListener('click', emailVerify);
+todoAddBtn.addEventListener('click', addTodo);

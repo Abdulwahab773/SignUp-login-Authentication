@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile, GoogleAuthProvider, signInWithPopup, sendEmailVerification, deleteUser  } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
-
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile, GoogleAuthProvider, signInWithPopup, sendEmailVerification, deleteUser } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
+import { getFirestore, collection, addDoc, setDoc, getDocs, doc, updateDoc, deleteDoc, Timestamp, onSnapshot, query, where, orderBy } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
 
 
 const firebaseConfig = {
@@ -15,7 +15,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
+
 
 export {
     createUserWithEmailAndPassword,
@@ -28,5 +30,18 @@ export {
     sendEmailVerification,
     deleteUser,
     GoogleAuthProvider,
-    provider  
+    provider,
+    db,
+    collection,
+    addDoc,
+    getDocs,
+    doc,
+    updateDoc,
+    deleteDoc,
+    setDoc,
+    Timestamp,
+    onSnapshot,
+    query,
+    where,
+    orderBy
 }

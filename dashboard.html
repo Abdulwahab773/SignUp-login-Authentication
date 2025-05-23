@@ -4,33 +4,46 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard Panel</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>To-Do Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="CSS/dashboard.css" />
 </head>
 
 <body>
-    <div class="dashboard">
-        <div class="profile-card">
-            <img id="userImage" src="https://i.pravatar.cc/100" alt="Profile Picture" class="profile-pic" />
-            <div class="user-info">
-                <h2 id="user-name" class="user-name">User Name</h2>
-                <h2 id="user-email">user@example.com</h2>
-                <p><strong>UID:</strong> <span id="uid">123456789</span></p>
-                <p><strong>Created:</strong> <span id="created-date">2024-01-01</span></p>
+    <div class="container">
+        <aside class="sidebar collapsed" id="sidebar">
+            <button class="toggle-btn" id="toggleSidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="profile-card">
+                <img id="userImage" src="" alt="Profile Picture" class="profile-pic"/>
+                <div class="user-info">
+                    <h2 class="user-name" id="user-name">User Name</h2>
+                    <h2 class="user-email" id="user-email">user@example.com</h2>
+                    <p><strong>UID:</strong> <span id="uid">123456789</span></p>
+                    <p><strong>Created:</strong> <span id="created-date">2024-01-01</span></p>
+                </div>
+                <button id="logout-btn" class="logout-btn">Logout</button>
+                <button id="delete-btn" class="delete-btn"><i class="fas fa-trash-alt"></i> Delete</button>
             </div>
-            <button id="logout-btn" class="logout-btn">Logout</button>
-            <button id="delete-btn" class="delete-btn"><i class="fas fa-trash-alt"></i> Delete Account</button>
-        </div>
+        </aside>
 
-        <div id="verification-panel" class="verification-panel">
-            <p class="verify-text">⚠️ Please verify your email to access all features.</p>
-            <button id="verifyBtn"><i class="fas fa-shield-alt"></i> Verify</button>
-        </div>
+        <main class="main-content">
+            <h1 class="todo-heading">📝 To-Do Manager</h1>
+
+            <div class="todo-form">
+                <input type="text" placeholder="Enter your task..." class="todo-input" id="todoInput"/>
+                <button type="submit" id="todoAddBtn" class="add-btn"><i class="fas fa-plus"></i> Add Task</button>
+            </div>
+
+            <ul id="todoList" class="todo-list">
+            </ul>
+        </main>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="script/dashboard.js"></script>
+
 </body>
 
 </html>
